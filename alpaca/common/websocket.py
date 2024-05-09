@@ -449,6 +449,7 @@ class BaseStream:
             print("keyboard interrupt, bye")
             pass
         finally:
+            self.close()
             self.stop()
 
     def stop(self) -> None:
