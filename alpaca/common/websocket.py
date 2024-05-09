@@ -455,7 +455,7 @@ class BaseStream:
         """Stops the websocket connection."""
         if self._loop.is_running():
             asyncio.run_coroutine_threadsafe(self.close(), self._loop).result(
-                timeout=5
+                timeout=15
             )
             asyncio.run_coroutine_threadsafe(self.stop_ws(), self._loop).result(
                 timeout=5
