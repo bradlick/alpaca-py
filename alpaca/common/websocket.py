@@ -449,12 +449,14 @@ class BaseStream:
             print("keyboard interrupt, bye")
             pass
         finally:
-            await self.close()
             self.stop()
 
     def stop(self) -> None:
         """Stops the websocket connection."""
         if self._loop.is_running():
+            asyncio.run_coroutine_threadsafe(self.close(), self._loop).result(
+                timeout=5
+            )
             asyncio.run_coroutine_threadsafe(self.stop_ws(), self._loop).result(
                 timeout=5
             )
